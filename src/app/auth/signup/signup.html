@@ -1,0 +1,70 @@
+<div class="overlay">
+  <div class="signup-modal">
+    <h1>Join Now</h1>
+
+    <form [formGroup]="signupForm" (ngSubmit)="submit()">
+      <!-- First / Last Name -->
+      <div class="row">
+        <div class="field">
+          <label>First Name</label>
+          <input type="text" formControlName="firstName" />
+          <small *ngIf="submitted && signupForm.controls['firstName'].errors">
+            Please enter a valid first name
+          </small>
+        </div>
+
+        <div class="field">
+          <label>Last Name</label>
+          <input type="text" formControlName="lastName" />
+          <small *ngIf="submitted && f['lastName']?.errors">
+            Please enter a valid last name
+          </small>
+        </div>
+      </div>
+
+      <!-- Email -->
+      <div class="field">
+        <label>Email</label>
+        <input type="email" formControlName="email" />
+        <small *ngIf="submitted && f['email']?.errors">
+          Please enter a valid email address
+        </small>
+      </div>
+
+      <!-- Phone / Zip -->
+      <div class="row">
+        <div class="field">
+          <label>Phone</label>
+          <input type="text" formControlName="phone" />
+          <small *ngIf="submitted && f['phone']?.errors">
+            Please enter a valid phone number
+          </small>
+        </div>
+
+        <div class="field">
+          <label>Zip Code (Optional)</label>
+          <input type="text" />
+        </div>
+      </div>
+
+      <!-- Password -->
+      <div class="field password-field">
+        <label>Create a Password</label>
+        <input type="password" formControlName="password" />
+        <small *ngIf="submitted && f['password']?.errors">
+          Password does not meet requirements.
+        </small>
+      </div>
+
+      <!-- Confirm Password -->
+      <div class="field password-field">
+        <label>Confirm Password</label>
+        <input type="password" formControlName="confirmPassword" />
+        <small *ngIf="submitted && signupForm.errors?.['mismatch']">
+          Password didn't match
+        </small>
+      </div>
+      <button type="submit">Create My Account</button>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,9 @@
+<header class="header">
+  <div class="logo">My App</div>
+
+  <div class="user-info" *ngIf="user">
+    <span class="name">
+      Welcome, {{ user.firstName }} {{ user.lastName }}
+    </span>
+  </div>
+</header>

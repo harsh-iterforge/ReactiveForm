@@ -1,0 +1,39 @@
+.header {
+  height: 60px;
+  background: #005eb8;
+  color: white;
+  padding: 0 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  .name {
+    font-size: 14px;
+  }
+
+  button {
+    background: transparent;
+    border: 1px solid white;
+    color: white;
+    padding: 6px 10px;
+    cursor: pointer;
+    border-radius: 4px;
+
+    &:hover {
+      background: white;
+      color: #005eb8;
+    }
+  }
+}
