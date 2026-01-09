@@ -3,7 +3,7 @@
     <h1>Sign In</h1>
 
     <form [formGroup]="loginForm" (ngSubmit)="submit()">
-
+      <!-- Email -->
       <div class="field">
         <label>Email</label>
         <input
@@ -11,11 +11,13 @@
           placeholder="Ex. example@mail.com"
           formControlName="email"
         />
-        <small *ngIf="submitted && f['email']?.errors">
-          Please enter a valid email
-        </small>
+
+        @if ((f['email'].touched || submitted) && f['email'].invalid) {
+          <small>Please enter a valid email.</small>
+        }
       </div>
 
+      <!-- Password -->
       <div class="field password-field">
         <label>Password</label>
         <input
@@ -23,11 +25,22 @@
           placeholder="Enter Password"
           formControlName="password"
         />
-        <small *ngIf="submitted && f['password']?.errors">
-          Please enter a valid password
-        </small>
+
+        @if ((f['password'].touched || submitted) && f['password'].invalid) {
+          <small>Password must be at least 8 characters.</small>
+        }
       </div>
-      <button type="submit">Continue</button>
+
+      <!-- Login Error -->
+      @if (loginError) {
+        <div class="login-error">
+          {{ loginError }}
+        </div>
+      }
+
+      <button type="submit" [disabled]="loginForm.invalid">
+        Continue
+      </button>
     </form>
 
     <p class="switch">

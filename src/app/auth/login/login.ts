@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../auth';
 import { Router } from '@angular/router';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-login',
@@ -12,11 +13,29 @@ import { Router } from '@angular/router';
 export class Login implements OnInit {
   submitted = false;
   loginForm;
+  loginError: any = null;
 
-  constructor(private fb: FormBuilder, private auth: AuthService, private router: Router) {
+  constructor(
+    private fb: FormBuilder,
+    private auth: AuthService,
+    private router: Router,
+    private cd: ChangeDetectorRef
+  ) {
     this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required],
+      email: [
+        '',
+        {
+          validators: [Validators.required, Validators.email],
+          updateOn: 'blur',
+        },
+      ],
+      password: [
+        '',
+        {
+          validators: [Validators.required, Validators.minLength(8)],
+          updateOn: 'blur',
+        },
+      ],
     });
   }
   ngOnInit(): void {
@@ -42,7 +61,8 @@ export class Login implements OnInit {
         localStorage.setItem('loggedInUser', JSON.stringify(users[0]));
         this.router.navigate(['/home']);
       } else {
-        alert('Invalid credentials');
+        this.loginError = 'The email address and password you provided do not match.';
+        this.cd.detectChanges();
       }
     });
   }
